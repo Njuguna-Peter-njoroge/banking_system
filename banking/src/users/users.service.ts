@@ -1,8 +1,11 @@
 /* eslint-disable @typescript-eslint/no-unsafe-member-access */
 import { DataSource } from 'typeorm';
 
-/* eslint-disable @typescript-eslint/no-unsafe-return */
-import { ConflictException, Injectable } from '@nestjs/common';
+import {
+  ConflictException,
+  Injectable,
+  NotFoundException,
+} from '@nestjs/common';
 import { CreateUserDto } from './Dto/create-user.dto';
 import { User } from './Entities/create-user.entity';
 
@@ -42,7 +45,31 @@ export class UsersService {
       .getMany();
   }
 
-  findOne() {
-    return this.users;
+  async findOne(id: string): Promise<User> {
+    const findUser = await this.dataSourse
+      .getRepository(User)
+      .createQueryBuilder('user')
+      .where('user.id = :id', { id })
+      .getOne();
+    if (!findUser) {
+      throw new NotFoundException(`user with id ${id} not found`);
+    }
+
+    return findUser;
   }
+
+  async findOneByEmail(email: string): Promise<User> {
+    const findUser = await this.dataSourse
+      .getRepository(User)
+      .createQueryBuilder('user')
+      .where('user.email = :email', { email })
+      .getOne();
+    if (!findUser) {
+      throw new NotFoundException(`user with  $email{email} not found`);
+    }
+
+    return findUser;
+  }
+
+async update(id: string){}
 }

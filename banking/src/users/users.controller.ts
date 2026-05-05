@@ -1,12 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpStatus,
-  Param,
-  ParseIntPipe,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './Dto/create-user.dto';
 import { User } from './Entities/create-user.entity';
@@ -23,15 +15,13 @@ export class UsersController {
     return this.userService.findAll();
   }
 
-  @Get(':id') findOne(
-    @Param(
-      'id',
-      new ParseIntPipe({
-        errorHttpStatusCode: HttpStatus.NOT_ACCEPTABLE,
-      }),
-    )
-    id: number,
-  ) {
-    return `fetch song on the based on id ${typeof id}`;
+  @Get('id/:id') findOne(@Param('id') id: string): Promise<User> {
+    return this.userService.findOne(id);
+  }
+
+  @Get('by-email') findOneByEmail(
+    @Query('email') email: string,
+  ): Promise<User> {
+    return this.userService.findOneByEmail(email);
   }
 }
