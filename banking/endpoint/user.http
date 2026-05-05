@@ -5,9 +5,9 @@ GET http://localhost:3000/users
 
 GET http://localhost:3000/users/1
 
-### create song
+### create user
 POST http://localhost:3000/users
-Content-Type: application/json
+Content-Type: application/jso
 
 {
   "fullName": "Peter Njoroge",

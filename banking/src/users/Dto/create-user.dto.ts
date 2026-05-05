@@ -2,7 +2,6 @@
 import {
   IsEmail,
   IsNotEmpty,
-  IsNumber,
   IsNumberString,
   IsPhoneNumber,
   IsString,
@@ -11,7 +10,6 @@ import {
 } from 'class-validator';
 
 export class CreateUserDto {
-  @IsString()
   @IsNotEmpty()
   readonly fullName: string;
 
@@ -26,7 +24,6 @@ export class CreateUserDto {
   @IsNumberString()
   @IsNotEmpty()
   @Length(7, 8)
-  @IsNumber()
   readonly nationalId: string;
 
   @IsString()
