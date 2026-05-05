@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unsafe-assignment */
 /* eslint-disable @typescript-eslint/no-unsafe-return */
 import {
   Body,
@@ -16,9 +15,9 @@ import { CreateUserDto } from './Dto/create-user.dto';
 @Controller('users')
 export class UsersController {
   constructor(private userService: UsersService) {}
-  @Post() create(@Body() createUsersDto: CreateUserDto) {
-    const results = this.userService.create(createUsersDto);
-    return results;
+  @Post()
+  async create(@Body() createUsersDto: CreateUserDto) {
+    return this.userService.create(createUsersDto);
   }
 
   @Get() findAll() {

@@ -7,10 +7,10 @@ GET http://localhost:3000/users/1
 
 ### create user
 POST http://localhost:3000/users
-Content-Type: application/jso
+Content-Type: application/json
 
 {
-  "fullName": "Peter Njoroge",
+  "fullName":"Peter Njoroge",
   "email": "peter@gmail.com",
   "phoneNumber": "+254712345678",
   "nationalId": "12345678",

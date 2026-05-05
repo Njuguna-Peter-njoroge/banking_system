@@ -7,6 +7,7 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { LoggerMiddleware } from './common/enums/middleware/logger/logger.middleware';
 import { UsersController } from './users/users.controller';
 import { DataSource } from 'typeorm';
+import { User } from './users/Entities/create-user.entity';
 
 @Module({
   imports: [
@@ -18,7 +19,7 @@ import { DataSource } from 'typeorm';
       username: 'postgres',
       password: 'post123',
       database: 'banking_system',
-      // entities: [createSongDto],
+      entities: [User],
       synchronize: true,
     }),
   ],
