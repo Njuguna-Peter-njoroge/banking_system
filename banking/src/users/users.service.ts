@@ -8,6 +8,7 @@ import {
 } from '@nestjs/common';
 import { CreateUserDto } from './Dto/create-user.dto';
 import { User } from './Entities/create-user.entity';
+import { UpdateUserDto } from './Dto/update-user.dto';
 
 @Injectable()
 export class UsersService {
@@ -71,5 +72,36 @@ export class UsersService {
     return findUser;
   }
 
-async update(id: string){}
+  async update(id: string, updateUserDto: UpdateUserDto): Promise<User> {
+    const updateResult = await this.dataSourse
+      .getRepository(User)
+      .createQueryBuilder()
+      .update(User)
+      .set(updateUserDto)
+      .where('id =:id', { id })
+      .execute();
+
+    if (updateResult.affected === 0) {
+      throw new NotFoundException(`user with id ${id} not found`);
+    }
+
+    const updatedUser = await this.dataSourse
+      .getRepository(User)
+      .findOneBy({ id });
+    if (!updatedUser) {
+      throw new NotFoundException(`song with id ${id} not found`);
+    }
+
+    return updatedUser;
+  }
+
+  async remove(id: number): Promise<void> {
+    await this.dataSourse
+      .getRepository(User)
+      .createQueryBuilder()
+      .delete()
+      .from(User)
+      .where('id = :id', { id })
+      .execute();
+  }
 }

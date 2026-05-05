@@ -4,16 +4,16 @@ import {
   IsPhoneNumber,
   IsString,
   IsStrongPassword,
+  Matches,
 } from 'class-validator';
 
-export class UpdateClassdto {
+export class UpdateUserDto {
   @IsOptional()
   @IsString()
-  FullName?: string;
+  fullName?: string;
 
   @IsPhoneNumber('KE')
   @IsOptional()
-  @IsString()
   phoneNumber?: string;
 
   @IsStrongPassword({

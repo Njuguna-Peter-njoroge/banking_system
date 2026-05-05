@@ -26,3 +26,16 @@ GET http://localhost:3000/users/by-email?email=peter@gmail.com
 
 
 
+### update song
+PUT http://localhost:3000/users/9fff851b-4447-46fd-9f37-c8ecb6fc9eb8
+Content-Type: application/json
+
+{
+  "fullName": "Peter de paul",
+  "phoneNumber": "+254712345678",
+  "password": "StrongPass@123456"
+}
+
+### delete song
+
+DELETE http://localhost:3000/songs/6
