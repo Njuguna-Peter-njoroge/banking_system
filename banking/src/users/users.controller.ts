@@ -1,9 +1,7 @@
-/* eslint-disable @typescript-eslint/no-unsafe-return */
 import {
   Body,
   Controller,
   Get,
-  HttpException,
   HttpStatus,
   Param,
   ParseIntPipe,
@@ -11,6 +9,7 @@ import {
 } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './Dto/create-user.dto';
+import { User } from './Entities/create-user.entity';
 
 @Controller('users')
 export class UsersController {
@@ -20,18 +19,8 @@ export class UsersController {
     return this.userService.create(createUsersDto);
   }
 
-  @Get() findAll() {
-    try {
-      return this.userService.findAll();
-    } catch (error) {
-      throw new HttpException(
-        'server error',
-        HttpStatus.INTERNAL_SERVER_ERROR,
-        {
-          cause: error,
-        },
-      );
-    }
+  @Get() findAll(): Promise<User[]> {
+    return this.userService.findAll();
   }
 
   @Get(':id') findOne(

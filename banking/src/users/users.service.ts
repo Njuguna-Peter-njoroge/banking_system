@@ -34,8 +34,12 @@ export class UsersService {
     return user.raw[0] as User;
   }
 
-  findAll() {
-    return this.users;
+  findAll(): Promise<User[]> {
+    return this.dataSourse
+      .createQueryBuilder()
+      .select('user')
+      .from(User, 'user')
+      .getMany();
   }
 
   findOne() {
